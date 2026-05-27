@@ -1,0 +1,43 @@
+<nav class="navbar">
+
+  <h2>Shopping Cart</h2>
+
+  <div>
+
+    <a routerLink="/products">
+      Products
+    </a>
+
+    &nbsp;&nbsp;
+
+    <a routerLink="/cart">
+      Cart
+    </a>
+
+    &nbsp;&nbsp;
+
+    <a
+      routerLink="/login"
+
+      *ngIf="
+        !authService.isLoggedIn()
+      "
+    >
+      Login
+    </a>
+
+    &nbsp;&nbsp;
+
+    <button
+      *ngIf="
+        authService.isLoggedIn()
+      "
+
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</nav>

@@ -1,0 +1,45 @@
+<div class="cart-container">
+
+  <h1>Cart Page</h1>
+
+  <div
+    class="cart-item"
+
+    *ngFor="
+      let item of cartItems
+    "
+  >
+
+    <h2>
+      {{ item.product.name }}
+    </h2>
+
+    <p>
+      Price:
+      ₹ {{ item.product.price }}
+    </p>
+
+    <p>
+      Quantity:
+      {{ item.quantity }}
+    </p>
+
+    <button
+      (click)="removeCartItem(item.id)"
+    >
+      Remove
+    </button>
+
+    <hr>
+
+  </div>
+
+  <h2>
+    Total: ₹ {{ total }}
+  </h2>
+
+  <button (click)="checkout()">
+  Checkout
+</button>
+
+</div>

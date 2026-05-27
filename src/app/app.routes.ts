@@ -1,3 +1,40 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { LoginComponent } from './pages/login/login.component';
+
+import { RegisterComponent } from './pages/register/register.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { authGuard } from './gaurds/auth.guard';
+import { CartComponent } from './pages/cart/cart.component';
+import { PaymentSuccessComponent }
+from './pages/payment-success/payment-success.component';
+
+export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'cart',
+
+    component: CartComponent,
+
+    canActivate: [authGuard],
+  },
+  {
+  path: 'success',
+  component: PaymentSuccessComponent
+}
+];

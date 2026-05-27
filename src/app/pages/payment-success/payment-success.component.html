@@ -1,0 +1,22 @@
+<div *ngIf="payment">
+
+  <h1>
+    Payment Successful 🎉
+  </h1>
+
+  <p>
+    Order Status:
+    {{ payment.order.status }}
+  </p>
+
+  <p>
+    Payment Status:
+    {{ payment.status }}
+  </p>
+
+  <p>
+    Transaction ID:
+    {{ payment.txnId }}
+  </p>
+
+</div>
