@@ -1,0 +1,84 @@
+<div class="orders-container">
+
+  <h1>My Orders</h1>
+
+  <div
+    class="order-card"
+
+    *ngFor="
+      let order of orders
+    "
+  >
+
+    <h2>
+      Order #{{ order.id }}
+    </h2>
+
+    <p>
+      Total:
+      ₹ {{ order.total }}
+    </p>
+
+    <p>
+      Order Status:
+      {{ order.status }}
+    </p>
+
+    <p>
+      Payment Status:
+      {{ order.payment?.status }}
+    </p>
+
+   <div *ngIf="order.address">
+
+  <h3>
+    Shipping Address
+  </h3>
+
+  <p>
+    {{ order.address.fullName }}
+  </p>
+
+  <p>
+    {{ order.address.mobile }}
+  </p>
+
+  <p>
+    {{ order.address.address }}
+  </p>
+
+  <p>
+    {{ order.address.city }}
+    -
+    {{ order.address.pincode }}
+  </p>
+
+  <p>
+    {{ order.address.state }}
+  </p>
+
+</div>
+
+    <hr>
+
+    <div
+      *ngFor="
+        let item of order.items
+      "
+    >
+
+      <p>
+        Product:
+        {{ item.product.name }}
+      </p>
+
+      <p>
+        Quantity:
+        {{ item.quantity }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

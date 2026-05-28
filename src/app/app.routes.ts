@@ -9,6 +9,10 @@ import { CartComponent } from './pages/cart/cart.component';
 import { PaymentSuccessComponent }
 from './pages/payment-success/payment-success.component';
 
+import { OrdersComponent }
+from './pages/orders/orders.component';
+import { AddressComponent } from './pages/address/address.component';
+
 export const routes: Routes = [
   {
     path: 'login',
@@ -34,7 +38,19 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-  path: 'success',
-  component: PaymentSuccessComponent
-}
+    path: 'success',
+    component: PaymentSuccessComponent,
+  },
+  {
+    path: 'orders',
+
+    component: OrdersComponent,
+
+    canActivate: [authGuard],
+  },
+  {
+    path: 'list',
+    component: AddressComponent,
+    canActivate: [authGuard],
+  }
 ];

@@ -1,0 +1,119 @@
+<div class="address-container">
+
+  <h1>
+    Address Management
+  </h1>
+
+  <form>
+
+    <input
+      type="text"
+
+      placeholder="Full Name"
+
+      [(ngModel)]="fullName"
+
+      name="fullName"
+    >
+
+    <input
+      type="text"
+
+      placeholder="Mobile"
+
+      [(ngModel)]="mobile"
+
+      name="mobile"
+    >
+
+    <textarea
+      placeholder="Address"
+
+      [(ngModel)]="address"
+
+      name="address"
+    ></textarea>
+
+    <input
+      type="text"
+
+      placeholder="City"
+
+      [(ngModel)]="city"
+
+      name="city"
+    >
+
+    <input
+      type="text"
+
+      placeholder="State"
+
+      [(ngModel)]="state"
+
+      name="state"
+    >
+
+    <input
+      type="text"
+
+      placeholder="Pincode"
+
+      [(ngModel)]="pincode"
+
+      name="pincode"
+    >
+
+    <button
+      type="button"
+
+      (click)="createAddress()"
+    >
+      Save Address
+    </button>
+
+  </form>
+
+  <hr>
+
+  <div
+    class="address-card"
+
+    *ngFor="let item of addresses"
+  >
+
+    <h3>
+      {{ item.fullName }}
+    </h3>
+
+    <p>
+      {{ item.mobile }}
+    </p>
+
+    <p>
+      {{ item.address }}
+    </p>
+
+    <p>
+      {{ item.city }}
+      -
+      {{ item.pincode }}
+    </p>
+
+    <p>
+      {{ item.state }}
+    </p>
+    <p *ngIf="item.isDefault">
+
+  Default Address ✅
+
+</p>
+    <button *ngIf="!item.isDefault"
+      (click)="setDefaultAddress(item.id)"
+    >
+      Set Default
+    </button>
+
+  </div>
+
+</div>

@@ -1,6 +1,8 @@
 <div class="cart-container">
 
-  <h1>Cart Page</h1>
+  <h1>
+    Cart Page
+  </h1>
 
   <div
     class="cart-item"
@@ -35,11 +37,66 @@
   </div>
 
   <h2>
-    Total: ₹ {{ total }}
+    Total:
+    ₹ {{ total }}
   </h2>
 
-  <button (click)="checkout()">
-  Checkout
-</button>
+  <hr>
+
+  <h2>
+    Shipping Address
+  </h2>
+
+  <div
+    class="address-card"
+
+    *ngIf="defaultAddress"
+  >
+
+    <strong>
+      {{ defaultAddress.fullName }}
+    </strong>
+
+    <p>
+      {{ defaultAddress.mobile }}
+    </p>
+
+    <p>
+      {{ defaultAddress.address }}
+    </p>
+
+    <p>
+      {{ defaultAddress.city }}
+      -
+      {{ defaultAddress.pincode }}
+    </p>
+
+    <p>
+      {{ defaultAddress.state }}
+    </p>
+
+  </div>
+
+  <div *ngIf="!defaultAddress">
+
+    <p>
+      No default address selected
+    </p>
+
+  </div>
+
+  <a routerLink="/list">
+
+    Change Address
+
+  </a>
+
+  <br><br>
+
+  <button
+    (click)="checkout()"
+  >
+    Checkout
+  </button>
 
 </div>
