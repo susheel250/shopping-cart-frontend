@@ -4,79 +4,70 @@
 
   <div
     class="order-card"
-
-    *ngFor="
-      let order of orders
-    "
+    *ngFor="let order of orders"
   >
 
-    <h2>
-      Order #{{ order.id }}
-    </h2>
+    <div class="order-header">
 
-    <p>
-      Total:
-      ₹ {{ order.total }}
-    </p>
+      <div class="order-info">
 
-    <p>
-      Order Status:
-      {{ order.status }}
-    </p>
+        <h2>Order #{{ order.id }}</h2>
 
-    <p>
-      Payment Status:
-      {{ order.payment?.status }}
-    </p>
+        <p><strong>Total:</strong> ₹ {{ order.total }}</p>
 
-   <div *ngIf="order.address">
+        <p>
+          <strong>Order Status:</strong>
+          <span class="status">
+            {{ order.status }}
+          </span>
+        </p>
 
-  <h3>
-    Shipping Address
-  </h3>
+        <p>
+          <strong>Payment Status:</strong>
+          {{ order.payment?.status }}
+        </p>
 
-  <p>
-    {{ order.address.fullName }}
-  </p>
+      </div>
 
-  <p>
-    {{ order.address.mobile }}
-  </p>
+      <div
+        class="address-box"
+        *ngIf="order.address"
+      >
 
-  <p>
-    {{ order.address.address }}
-  </p>
+        <h3>Shipping Address</h3>
 
-  <p>
-    {{ order.address.city }}
-    -
-    {{ order.address.pincode }}
-  </p>
+        <p>{{ order.address.fullName }}</p>
 
-  <p>
-    {{ order.address.state }}
-  </p>
+        <p>{{ order.address.mobile }}</p>
 
-</div>
+        <p>{{ order.address.address }}</p>
+
+        <p>
+          {{ order.address.city }},
+          {{ order.address.state }}
+        </p>
+
+        <p>{{ order.address.pincode }}</p>
+
+      </div>
+
+    </div>
 
     <hr>
 
+    <h3>Order Items</h3>
+
     <div
-      *ngFor="
-        let item of order.items
-      "
+      class="item-row"
+      *ngFor="let item of order.items"
     >
-
       <p>
-        Product:
-        {{ item.product.name }}
+        <strong>{{ item.product.name }}</strong>
       </p>
 
       <p>
-        Quantity:
-        {{ item.quantity }}
+        Qty: {{ item.quantity }}
       </p>
-
     </div>
 
   </div>

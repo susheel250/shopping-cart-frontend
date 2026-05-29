@@ -1,102 +1,88 @@
 <div class="cart-container">
+  <h1>My Cart</h1>
 
-  <h1>
-    Cart Page
-  </h1>
+  <div class="cart-layout">
+    <!-- Left Side : Cart Items -->
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <div class="product-image">
+          <img
+            [src]="getImageUrl(item.product.image)"
+            [alt]="item.product.name"
+          />
+        </div>
 
-  <div
-    class="cart-item"
+        <div class="product-details">
+          <h3>{{ item.product.name }}</h3>
 
-    *ngFor="
-      let item of cartItems
-    "
-  >
+          <p class="price">₹ {{ item.product.price }}</p>
 
-    <h2>
-      {{ item.product.name }}
-    </h2>
+          <p>
+            Quantity:
+            <strong>{{ item.quantity }}</strong>
+          </p>
 
-    <p>
-      Price:
-      ₹ {{ item.product.price }}
-    </p>
+          <p class="subtotal">
+            Subtotal: ₹ {{ item.product.price * item.quantity }}
+          </p>
 
-    <p>
-      Quantity:
-      {{ item.quantity }}
-    </p>
+          <button class="remove-btn" (click)="removeCartItem(item.id)">
+            Remove
+          </button>
+        </div>
+      </div>
 
-    <button
-      (click)="removeCartItem(item.id)"
-    >
-      Remove
-    </button>
+      <div class="empty-cart" *ngIf="cartItems.length === 0">
+        <h2>Your cart is empty</h2>
+      </div>
+    </div>
 
-    <hr>
+    <!-- Right Side : Summary -->
+    <div class="summary-section">
+      <div class="summary-card">
+        <h2>Order Summary</h2>
 
+        <div class="summary-row">
+          <span>Total Items</span>
+          <strong>{{ cartItems.length }}</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Grand Total</span>
+          <strong class="grand-total"> ₹ {{ total }} </strong>
+        </div>
+      </div>
+
+      <div class="address-card">
+        <h3>Shipping Address</h3>
+
+        <div *ngIf="selectedAddress">
+          <strong>
+            {{ selectedAddress.fullName }}
+          </strong>
+
+          <p>{{ selectedAddress.mobile }}</p>
+
+          <p>{{ selectedAddress.address }}</p>
+
+          <p>
+            {{ selectedAddress.city }},
+            {{ selectedAddress.state }}
+          </p>
+
+          <p>{{ selectedAddress.pincode }}</p>
+        </div>
+
+        <a class="manage-address-btn" routerLink="/list"> Manage Addresses </a>
+      </div>
+
+      <button
+        class="checkout-btn"
+        [disabled]="!selectedAddressId || cartItems.length === 0"
+        (click)="checkout()"
+      >
+        🛒 Proceed to Checkout
+      </button>
+    </div>
   </div>
-
-  <h2>
-    Total:
-    ₹ {{ total }}
-  </h2>
-
-  <hr>
-
-  <h2>
-    Shipping Address
-  </h2>
-
-  <div
-    class="address-card"
-
-    *ngIf="defaultAddress"
-  >
-
-    <strong>
-      {{ defaultAddress.fullName }}
-    </strong>
-
-    <p>
-      {{ defaultAddress.mobile }}
-    </p>
-
-    <p>
-      {{ defaultAddress.address }}
-    </p>
-
-    <p>
-      {{ defaultAddress.city }}
-      -
-      {{ defaultAddress.pincode }}
-    </p>
-
-    <p>
-      {{ defaultAddress.state }}
-    </p>
-
-  </div>
-
-  <div *ngIf="!defaultAddress">
-
-    <p>
-      No default address selected
-    </p>
-
-  </div>
-
-  <a routerLink="/list">
-
-    Change Address
-
-  </a>
-
-  <br><br>
-
-  <button
-    (click)="checkout()"
-  >
-    Checkout
-  </button>
-
 </div>

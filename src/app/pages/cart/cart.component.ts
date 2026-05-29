@@ -1,24 +1,20 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { CommonModule }
-from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { CartService }
-from '../../services/cart.service';
-
-import { OrderService }
-from '../../services/order.service';
-
-import { PaymentService }
-from '../../services/payment.service';
-
-import { AddressService }
-from '../../services/address.service';
 import { FormsModule } from '@angular/forms';
+
 import { RouterLink } from '@angular/router';
+
+import { CartService } from '../../services/cart.service';
+
+import { OrderService } from '../../services/order.service';
+
+import { PaymentService } from '../../services/payment.service';
+
+import { AddressService } from '../../services/address.service';
+
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -35,8 +31,14 @@ export class CartComponent implements OnInit {
   cartItems: any[] = [];
 
   total = 0;
+
   addresses: any[] = [];
+
   defaultAddress: any = null;
+
+  selectedAddressId: number | null = null;
+
+  selectedAddress: any = null;
 
   constructor(
     private cartService: CartService,
@@ -47,6 +49,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCartItems();
+
     this.getAddresses();
   }
 
@@ -79,7 +82,6 @@ export class CartComponent implements OnInit {
       next: () => {
         alert('Item Removed');
 
-        // Reload cart
         this.getCartItems();
       },
 
@@ -91,28 +93,55 @@ export class CartComponent implements OnInit {
     });
   }
 
-  checkout() {
-    // Empty cart validation
+  getAddresses() {
+    this.addressService.getMyAddresses().subscribe({
+      next: (response: any) => {
+        this.addresses = response;
 
+        const defaultAddress = this.addresses.find(
+          (item: any) => item.isDefault === true,
+        );
+
+        if (defaultAddress) {
+          this.defaultAddress = defaultAddress;
+
+          this.selectedAddressId = defaultAddress.id;
+
+          this.selectedAddress = defaultAddress;
+        }
+      },
+
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  onAddressChange(): void {
+    this.selectedAddress = this.addresses.find(
+      (item: any) => item.id == this.selectedAddressId,
+    );
+  }
+
+  checkout() {
     if (this.cartItems.length === 0) {
       alert('Cart is empty');
 
       return;
     }
 
-    
-    // Step 1
-    // Create order first
+    if (!this.selectedAddressId) {
+      alert('Please select a shipping address');
+
+      return;
+    }
+
+    console.log('Selected Address:', this.selectedAddressId);
 
     this.orderService.createOrder().subscribe({
       next: () => {
-        // Step 2
-        // Create Stripe session
-
         this.paymentService.createCheckoutSession().subscribe({
           next: (response: any) => {
-            // Redirect Stripe
-
             window.location.href = response.url;
           },
 
@@ -132,33 +161,8 @@ export class CartComponent implements OnInit {
     });
   }
 
- getAddresses() {
-
-  this.addressService
-    .getMyAddresses()
-    .subscribe({
-
-      next: (response: any) => {
-
-        this.addresses = response;
-
-        this.defaultAddress =
-          this.addresses.find(
-
-            (item: any) =>
-              item.isDefault === true
-
-          );
-
-      },
-
-      error: (error) => {
-
-        console.log(error);
-
-      }
-
-    });
-
+  getImageUrl(image: string): string {
+    return `${environment.apiUrl}/uploads/${image}`;
+  }
 }
-}
+
