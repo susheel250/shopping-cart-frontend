@@ -25,4 +25,20 @@ export class ProductService {
 
   }
 
+  // Create product
+
+  createProduct(
+    formData: FormData
+  ) {
+
+    return this.http.post(
+
+      `${this.apiUrl}/create`,
+
+      formData
+
+    );
+
+  }
+
 }
