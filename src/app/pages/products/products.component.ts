@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { CommonModule }
+import { CommonModule}
 from '@angular/common';
 
 import { ProductService }
@@ -11,6 +11,7 @@ from '../../services/product.service';
 
 import { CartService }
 from '../../services/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
 
@@ -18,7 +19,7 @@ from '../../services/cart.service';
 
   standalone: true,
 
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
 
   templateUrl:
     './products.component.html',

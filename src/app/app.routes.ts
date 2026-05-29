@@ -12,6 +12,7 @@ from './pages/payment-success/payment-success.component';
 import { OrdersComponent }
 from './pages/orders/orders.component';
 import { AddressComponent } from './pages/address/address.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 export const routes: Routes = [
   {
@@ -27,7 +28,6 @@ export const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
-    canActivate: [authGuard],
   },
 
   {
@@ -52,5 +52,9 @@ export const routes: Routes = [
     path: 'list',
     component: AddressComponent,
     canActivate: [authGuard],
-  }
+  },
+  {
+    path: 'products/:id',
+    component: ProductDetailComponent,
+  },
 ];

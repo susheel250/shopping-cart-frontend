@@ -81,7 +81,9 @@ export class CartComponent implements OnInit {
     this.cartService.removeCartItem(cartId).subscribe({
       next: () => {
         alert('Item Removed');
-
+        this.cartService.getCartCount().subscribe((response: any) => {
+          this.cartService.setCartCount(response.count);
+        });
         this.getCartItems();
       },
 
