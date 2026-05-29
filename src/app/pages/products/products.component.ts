@@ -85,7 +85,9 @@ implements OnInit {
     .subscribe({
 
       next: (response) => {
-
+        this.cartService.getCartCount().subscribe((response: any) => {
+          this.cartService.setCartCount(response.count);
+        });
         console.log(response);
 
         alert('Added To Cart');

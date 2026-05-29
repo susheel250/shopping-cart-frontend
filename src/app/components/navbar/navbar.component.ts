@@ -4,6 +4,9 @@ from '@angular/core';
 import { CommonModule }
 from '@angular/common';
 
+import { CartService }
+from '../../services/cart.service';
+
 import {
   Router,
   RouterLink
@@ -29,11 +32,25 @@ from '../../services/auth.service';
 })
 
 export class NavbarComponent {
+  cartCount = 0;
+  ngOnInit(): void {
+
+  this.loadCartCount();
+
+  this.cartService.cartCount$
+    .subscribe(count => {
+
+      this.cartCount = count;
+
+    });
+
+}
 
   constructor(
 
     public authService:
     AuthService,
+    public cartService: CartService,
 
     private router: Router
 
@@ -48,5 +65,18 @@ export class NavbarComponent {
     ]);
 
   }
+
+  loadCartCount(): void {
+
+  this.cartService.getCartCount()
+    .subscribe((response: any) => {
+
+      this.cartService.setCartCount(
+        response.count
+      );
+
+    });
+
+}
 
 }

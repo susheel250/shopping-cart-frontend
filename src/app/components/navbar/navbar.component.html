@@ -10,9 +10,19 @@
 
     &nbsp;&nbsp;
 
-    <a routerLink="/cart">
-      Cart
-    </a>
+    <a
+  routerLink="/cart"
+  class="cart-link"
+>
+  🛒
+
+  <span
+    class="cart-badge"
+    *ngIf="cartCount > 0"
+  >
+    {{ cartCount }}
+  </span>
+</a>
 
     &nbsp;&nbsp;
 
